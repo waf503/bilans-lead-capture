@@ -17,6 +17,8 @@ class InterestSeeder extends Seeder
             ['name' => 'Punto de Venta (POS) para Restaurantes'],
             ['name' => 'Contabilidad y Finanzas Corporativas'],
             ['name' => 'Nómina y Recursos Humanos'],
+            ['name' => 'Control de Producción Industrial'],
+            ['name' => 'Gestión de Lotificaciones'],
         ]);
     }
 }
