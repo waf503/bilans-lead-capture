@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Bilans ERP - Registro')</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="https://erpbilans.com/wp-content/uploads/2025/01/Icon180.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="https://erpbilans.com/wp-content/uploads/2025/01/Icon180.png">
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-slate-100 flex items-center justify-center min-h-screen p-4 md:p-8 lg:p-12 font-sans">
 

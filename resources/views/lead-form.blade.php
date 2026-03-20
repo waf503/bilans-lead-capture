@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 
 @section('content')
-    <form action="{{ route('leads.store') }}" method="POST" class="p-6 sm:p-10 md:p-14 space-y-6">
+    <form action="{{ route('leads.store') }}" method="POST" class="p-6 sm:p-10 md:p-14 space-y-6" x-data>
         @csrf
 
         <input type="hidden" name="source_id" value="{{ $source_id ?? null }}">
@@ -25,8 +25,9 @@
             </div>
 
             <div>
-                <label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-widest">WhatsApp</label>
+                <label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-widest">Teléfono / Cel</label>
                 <input type="tel" name="phone" required placeholder="7777-0000"
+                       inputmode="numeric"
                        class="w-full bg-slate-50 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-blue-500 shadow-sm transition-all">
             </div>
 

@@ -24,10 +24,11 @@ class LeadController extends Controller
         $qr->increment('scan_count');
 
         // Send them to the form with the IDs in the URL (Query Parameters)
-        return redirect()->route('lead.form', [
+        session([
             'source_id' => $qr->source_id,
             'qr_code_id' => $qr->id
         ]);
+        return redirect()->route('lead.form');
     }
 
     // This shows the actual Blade form
@@ -39,8 +40,8 @@ class LeadController extends Controller
         return view('lead-form', [
             'interests' => $interests,
             'businessSizes' => $businessSizes,
-            'source_id' => $request->query('source_id', 3), // Default to "Web" if empty
-            'qr_code_id' => $request->query('qr_code_id')
+            'source_id'  => session('source_id', 3),
+            'qr_code_id' => session('qr_code_id')
         ]);
     }
     public function store(Request $request)
@@ -57,8 +58,17 @@ class LeadController extends Controller
             'qr_code_id'       => 'nullable|exists:qr_codes,id',
             'source_id'        => 'nullable|exists:sources,id',
         ]);
+
         if ($request->filled('my_digital_signature')) {
-            return back()->with('error', 'Bot detected!');
+            return back()->with('success', '¡Gracias! Tu solicitud ha sido enviada. Pronto te contactaremos.');
+        }
+
+        $recentLead = Lead::where('email', $validated['email'])
+            ->where('created_at', '>=', now()->subHours(24))
+            ->count();
+
+        if ($recentLead >= 5) {
+            return back()->with('error', 'Has excedido el límite de envíos permitidos. Por favor intenta más tarde.');
         }
 
         // 2. Crear el Lead en la base de datos

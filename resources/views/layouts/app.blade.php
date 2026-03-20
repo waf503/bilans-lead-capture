@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Bilans Admin')</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="https://erpbilans.com/wp-content/uploads/2025/01/Icon180.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="https://erpbilans.com/wp-content/uploads/2025/01/Icon180.png">
 </head>
 <body class="bg-gray-100 font-sans">
 
