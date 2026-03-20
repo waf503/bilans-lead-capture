@@ -20,4 +20,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/qrs', [QrCodeController::class, 'index'])->name('qrs.index');
     Route::post('/admin/qrs', [QrCodeController::class, 'store'])->name('qrs.store');
     Route::delete('/admin/qrs/{qr}', [QrCodeController::class, 'destroy'])->name('qrs.destroy');
+    Route::get('/admin/data-collected', [LeadController::class, 'index'])->name('leads.index');
 });

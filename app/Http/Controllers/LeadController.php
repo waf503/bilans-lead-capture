@@ -10,6 +10,17 @@ use Illuminate\Http\Request;
 
 class LeadController extends Controller
 {
+    public function index()
+    {
+        $leads = Lead::with(['source', 'interest', 'businessSize'])
+            ->latest()
+            ->paginate(20);
+        $totalLeads = \App\Models\Lead::count();
+        $todayLeads = \App\Models\Lead::whereDate('created_at', today())->count();
+        $thisMonthLeads = \App\Models\Lead::whereMonth('created_at', now()->month)->count();
+
+        return view('admin.leads.index', compact('leads', 'totalLeads', 'todayLeads', 'thisMonthLeads'));
+    }
     // This handles the "Scan" from the billboard
     public function handleScan($slug)
     {

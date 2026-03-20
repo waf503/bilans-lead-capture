@@ -29,4 +29,10 @@ class Lead extends Model
     {
         return $this->belongsTo(BusinessSize::class);
     }
+    public function source(){
+        return $this->belongsTo(Source::class);
+    }
+    public function interest(){
+        return $this->belongsTo(Interest::class);
+    }
 }
