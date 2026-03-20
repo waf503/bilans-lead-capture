@@ -68,14 +68,9 @@
                             </td>
                             <td class="px-8 py-5">
                                 <div class="bg-white p-1 rounded-lg border border-gray-100 shadow-sm w-fit">
-                                    {!!
-                                        QrCode::size(80)
-                                            ->format('svg')
-                                            ->errorCorrection('H') // Alta corrección para que el logo no afecte la lectura
-                                            ->generate(url('/q/' . $qr->slug))
-                                    !!}
+                                    <img src="{{ $qrImages[$qr->id]['dataUri'] }}" style="width: 80px; height: 80px;" />
                                 </div>
-                                <a href="data:image/svg+xml;base64,{{ base64_encode(QrCode::format('svg')->size(500)->generate(url('/q/'.$qr->slug))) }}"
+                                <a href="data:image/svg+xml;base64,{{ base64_encode($qrImages[$qr->id]['svgString']) }}"
                                    download="qr-{{ $qr->slug }}.svg"
                                    class="text-[9px] text-blue-500 font-bold uppercase mt-1 block hover:underline">
                                     Descargar para Impresión

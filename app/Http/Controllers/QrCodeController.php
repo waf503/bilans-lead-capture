@@ -15,7 +15,27 @@ class QrCodeController extends Controller
         $sources = Source::all();
         $totalScans = $qrCodes->sum('scan_count');
 
-        return view('admin.qrs.index', compact('qrCodes', 'sources', 'totalScans'));
+        // Generate QR codes
+        $qrImages = $qrCodes->mapWithKeys(function ($qr) {
+
+            $qrCode = \Endroid\QrCode\QrCode::create(config('app.url') . '/q/' . $qr->slug)
+                ->setErrorCorrectionLevel(\Endroid\QrCode\ErrorCorrectionLevel::High)
+                ->setSize(500)
+                ->setMargin(15)
+                ->setForegroundColor(new \Endroid\QrCode\Color\Color(30, 30, 30))
+                ->setBackgroundColor(new \Endroid\QrCode\Color\Color(255, 255, 255));
+
+            $result = (new \Endroid\QrCode\Writer\SvgWriter())->write($qrCode);
+
+            return [
+                $qr->id => [
+                    'dataUri'   => $result->getDataUri(),
+                    'svgString' => $result->getString(),
+                ]
+            ];
+        });
+
+        return view('admin.qrs.index', compact('qrCodes', 'sources', 'totalScans', 'qrImages'));
     }
 
     public function store(Request $request)
